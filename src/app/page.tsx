@@ -1,12 +1,20 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import gsap from 'gsap';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   const textContainerRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
@@ -214,7 +222,7 @@ export default function Home() {
       </div>
 
       {/* History/Origin Section ("Where It All Began") */}
-      <section className="relative w-full bg-[#F5C400] text-zinc-950 overflow-hidden py-16 md:py-20 flex items-center min-h-[360px] md:min-h-[460px] border-t border-zinc-900/10">
+      <section className="relative w-full bg-[#F5C400] text-zinc-950 overflow-hidden pt-16 pb-0 md:py-20 flex flex-col md:flex md:items-center min-h-[360px] md:min-h-[460px] border-t border-zinc-900/10">
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
 
           {/* Left Column: Story Text */}
@@ -232,13 +240,13 @@ export default function Home() {
         </div>
 
         {/* Absolute positioned crowd silhouettes (which contains the speech bubble already) */}
-        <div className="absolute bottom-0 right-0 w-[95%] sm:w-[75%] md:w-[60%] lg:w-[48%] h-[115%] sm:h-[125%] md:h-[135%] select-none z-0 pointer-events-none">
+        <div className="relative md:absolute md:bottom-0 md:right-0 w-full md:w-[60%] lg:w-[48%] h-[200px] sm:h-[250px] md:h-[135%] select-none z-0 pointer-events-none mt-6 md:mt-0">
           <Image
             src="/people-drk.png"
             alt="FREAKS silhouettes crowd"
             fill
             priority
-            className="object-contain object-right-bottom select-none"
+            className="object-contain object-bottom md:object-right-bottom select-none"
           />
         </div>
       </section>
@@ -374,7 +382,7 @@ export default function Home() {
       <section
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="relative w-full bg-[#F5C400] text-zinc-950 overflow-hidden py-16 md:py-24 flex items-center min-h-[500px] md:min-h-[600px] border-t border-zinc-900/10"
+        className="relative w-full bg-[#F5C400] text-zinc-950 overflow-hidden pt-16 pb-0 md:py-24 flex flex-col md:flex md:items-center min-h-[500px] md:min-h-[600px] border-t border-zinc-900/10"
       >
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
 
@@ -435,28 +443,28 @@ export default function Home() {
           {/* Right Column: Character (pointing.png) with 3D Mouse Parallax */}
           <div
             style={{ perspective: 1000 }}
-            className="md:col-span-5 lg:col-span-6 relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px] w-full flex items-end"
+            className="md:col-span-5 lg:col-span-6 relative h-[360px] sm:h-[400px] md:h-[500px] lg:h-[550px] w-full flex items-end"
           >
             <motion.div
               style={{
-                x: characterX,
-                y: characterY,
-                rotateX: characterRotateX,
-                rotateY: characterRotateY,
+                x: isMobile ? 0 : characterX,
+                y: isMobile ? 0 : characterY,
+                rotateX: isMobile ? 0 : characterRotateX,
+                rotateY: isMobile ? 0 : characterRotateY,
                 transformStyle: "preserve-3d"
               }}
-              initial={{ opacity: 0, y: 80 }}
+              initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 80 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 80, damping: 16 }}
-              className="absolute bottom-[-20px] right-0 w-full h-[95%] sm:h-[100%] md:h-[105%] select-none z-0 pointer-events-none"
+              transition={isMobile ? { duration: 0 } : { type: "spring", stiffness: 80, damping: 16 }}
+              className="absolute bottom-0 md:bottom-[-20px] left-0 right-0 w-full h-full md:h-[105%] select-none z-0 pointer-events-none"
             >
               <Image
                 src="/pointing.png"
                 alt="WallStreetBets Kid pointing"
                 fill
                 priority
-                className="object-contain object-right-bottom select-none"
+                className="object-contain object-bottom md:object-right-bottom select-none"
               />
             </motion.div>
           </div>
@@ -499,13 +507,13 @@ export default function Home() {
           <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
             
             {/* Left Column: oneofus.png image (resized to balance text height) */}
-            <div className="md:col-span-5 flex items-center justify-center">
+            <div className="-mx-6 md:mx-0 w-[calc(100%+3rem)] md:w-full md:col-span-5 flex items-center justify-center">
               <motion.div 
                 initial={{ opacity: 0, scale: 0.95, rotate: -2 }}
                 whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
                 viewport={{ once: true }}
                 transition={{ type: "spring", stiffness: 80, damping: 15 }}
-                className="relative w-full max-w-[420px] lg:max-w-[460px] h-[320px] sm:h-[420px] md:h-[480px] lg:h-[520px] flex items-center justify-center"
+                className="relative w-full max-w-none md:max-w-[420px] lg:max-w-[460px] aspect-[1824/2334] md:aspect-auto md:h-[480px] lg:h-[520px] flex items-center justify-center"
               >
                 <Image
                   src="/oneofus.png"
