@@ -147,7 +147,7 @@ export default function Home() {
 
       {/* Main Content Area */}
       <div className="relative z-10 w-full max-w-7xl mx-auto min-h-screen flex flex-col justify-between px-6 py-10 md:px-12 md:py-12">
-        
+
         {/* Top Header/Nav */}
         <div className="w-full flex items-center justify-between">
           <span className="font-display text-3xl tracking-widest font-black text-[#F5C400] select-none">
@@ -216,7 +216,7 @@ export default function Home() {
       {/* History/Origin Section ("Where It All Began") */}
       <section className="relative w-full bg-[#F5C400] text-zinc-950 overflow-hidden py-16 md:py-20 flex items-center min-h-[360px] md:min-h-[460px] border-t border-zinc-900/10">
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-          
+
           {/* Left Column: Story Text */}
           <div className="md:col-span-7 lg:col-span-6 flex flex-col items-start text-left max-w-xl z-10">
             <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[0.9] tracking-[0.05em] text-zinc-950 mb-4 select-none uppercase">
@@ -244,7 +244,7 @@ export default function Home() {
       </section>
 
       {/* Why It's So Popular Section */}
-      <section className="relative w-full bg-black py-12 sm:py-16 md:py-20 flex flex-col justify-center items-center overflow-hidden border-t border-zinc-900/50">
+      <section className="relative w-full bg-black py-8 sm:py-10 md:py-12 flex flex-col justify-center items-center overflow-hidden border-t border-zinc-900/50">
         {/* Subtle ambient glows for Awwwards layout */}
         <div className="absolute top-[30%] left-[5%] w-[40%] h-[40%] rounded-full bg-yellow-500/5 blur-[130px] pointer-events-none" />
         <div className="absolute bottom-[20%] right-[5%] w-[40%] h-[40%] rounded-full bg-orange-500/5 blur-[130px] pointer-events-none" />
@@ -275,7 +275,7 @@ export default function Home() {
 
           {/* 2-Column Grid (Left: Features Row/Stack, Right: Risk Image) */}
           <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
-            
+
             {/* Left Column (col-span-8): Responsive grid (vertical on mobile, row on desktop) */}
             <motion.div
               initial="hidden"
@@ -355,7 +355,7 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ type: "spring", stiffness: 80, damping: 16, delay: 0.3 }}
-              className="md:col-span-5 relative w-full h-[260px] sm:h-[350px] md:h-[420px] lg:h-[480px] flex items-center justify-center select-none"
+              className="md:col-span-5 relative w-full h-[160px] sm:h-[220px] md:h-[280px] lg:h-[320px] flex items-center justify-center select-none"
             >
               <Image
                 src="/risk-stroke.png"
@@ -371,19 +371,19 @@ export default function Home() {
       </section>
 
       {/* WallStreetBets Section ("What Does It Mean") */}
-      <section 
+      <section
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         className="relative w-full bg-[#F5C400] text-zinc-950 overflow-hidden py-16 md:py-24 flex items-center min-h-[500px] md:min-h-[600px] border-t border-zinc-900/10"
       >
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
-          
+
           {/* Left Column: Info Text and Bullet List */}
           <div className="md:col-span-7 lg:col-span-6 flex flex-col items-start text-left z-10">
             <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[0.9] tracking-[0.05em] text-zinc-950 mb-6 select-none uppercase">
               WHAT DOES IT MEAN ON WALLSTREETBETS?
             </h2>
-            
+
             {/* WSB Bullet List */}
             <div className="flex flex-col gap-3 font-sans text-sm sm:text-base md:text-lg font-bold text-zinc-900 mb-6">
               <p className="font-sans font-black text-zinc-950">If someone:</p>
@@ -407,16 +407,16 @@ export default function Home() {
               <p className="font-sans font-black text-zinc-950 text-sm sm:text-base md:text-lg">You&apos;ll see comments like:</p>
               <div className="flex flex-wrap gap-4 items-center">
                 {/* Black pill */}
-                <motion.div 
+                <motion.div
                   whileHover={{ scale: 1.05, rotate: 0 }}
                   whileTap={{ scale: 0.95 }}
                   className="bg-zinc-950 text-white font-display text-2xl md:text-3xl px-6 py-2.5 rounded-xl border-2 border-zinc-950 rotate-[-2deg] select-none font-bold shadow-md cursor-pointer transition-transform"
                 >
                   ONE OF US.
                 </motion.div>
-                
+
                 {/* Red pill */}
-                <motion.div 
+                <motion.div
                   whileHover={{ scale: 1.05, rotate: 0 }}
                   whileTap={{ scale: 0.95 }}
                   className="bg-[#D92D20] text-white font-display text-2xl md:text-3xl px-6 py-2.5 rounded-xl border-2 border-[#D92D20] rotate-[3deg] select-none font-bold shadow-md cursor-pointer transition-transform"
@@ -433,7 +433,7 @@ export default function Home() {
           </div>
 
           {/* Right Column: Character (pointing.png) with 3D Mouse Parallax */}
-          <div 
+          <div
             style={{ perspective: 1000 }}
             className="md:col-span-5 lg:col-span-6 relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px] w-full flex items-end"
           >
