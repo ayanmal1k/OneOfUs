@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import gsap from 'gsap';
 
 export default function Home() {
@@ -17,6 +17,33 @@ export default function Home() {
   const bgY = useTransform(scrollY, [0, 800], [0, 150]);
   const stampY = useTransform(scrollY, [0, 800], [0, -50]);
   const stampRotate = useTransform(scrollY, [0, 800], [-12, 15]);
+
+  // Mouse-tracking 3D Parallax for the Pointing character
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 100, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 100, damping: 20 });
+
+  const characterX = useTransform(springX, [-0.5, 0.5], [-25, 25]);
+  const characterY = useTransform(springY, [-0.5, 0.5], [-25, 25]);
+  const characterRotateX = useTransform(springY, [-0.5, 0.5], [12, -12]);
+  const characterRotateY = useTransform(springX, [-0.5, 0.5], [-12, 12]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    if (!rect) return;
+    const width = rect.width;
+    const height = rect.height;
+    const mouseXVal = (e.clientX - rect.left) / width - 0.5;
+    const mouseYVal = (e.clientY - rect.top) / height - 0.5;
+    mouseX.set(mouseXVal);
+    mouseY.set(mouseYVal);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   useEffect(() => {
     // Staggered GSAP entry animations for maximum impact
@@ -217,14 +244,14 @@ export default function Home() {
       </section>
 
       {/* Why It's So Popular Section */}
-      <section className="relative w-full bg-black py-24 md:py-32 flex flex-col justify-center items-center overflow-hidden border-t border-zinc-900/50">
+      <section className="relative w-full bg-black py-8 sm:py-10 md:py-12 flex flex-col justify-center items-center overflow-hidden border-t border-zinc-900/50">
         {/* Subtle ambient glows for Awwwards layout */}
         <div className="absolute top-[30%] left-[5%] w-[40%] h-[40%] rounded-full bg-yellow-500/5 blur-[130px] pointer-events-none" />
         <div className="absolute bottom-[20%] right-[5%] w-[40%] h-[40%] rounded-full bg-orange-500/5 blur-[130px] pointer-events-none" />
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center">
           {/* Header Title with underline animation */}
-          <div className="relative inline-block mb-20 md:mb-28 text-center">
+          <div className="relative inline-block mb-8 md:mb-12 text-center">
             <h2 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-[0.06em] text-white select-none uppercase leading-none">
               WHY IT&apos;S SO <span className="text-[#F5C400]">POPULAR</span>
             </h2>
@@ -246,79 +273,100 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* Staggered Cards Grid */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={{
-              visible: {
-                transition: {
-                  staggerChildren: 0.2,
-                },
-              },
-            }}
-            className="w-full grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-b border-[#F5C400]/10 md:border-b-0 md:border-t-0"
-          >
-            {[
-              {
-                icon: "/icon-smile.png",
-                text1: "Self-deprecating",
-                text2: "humor",
-              },
-              {
-                icon: "/icon-handshake.png",
-                text1: "We laugh together",
-                text2: "at the chaos",
-              },
-              {
-                icon: "/icon-rocket.png",
-                text1: "Big wins. Big losses.",
-                text2: "All part of the ride.",
-              },
-            ].map((col, index) => (
-              <motion.div
-                key={index}
-                variants={{
-                  hidden: { opacity: 0, y: 50 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: { type: "spring", stiffness: 100, damping: 18 },
+          {/* 2-Column Grid (Left: Features Row/Stack, Right: Risk Image) */}
+          <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+            
+            {/* Left Column (col-span-8): Responsive grid (vertical on mobile, row on desktop) */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={{
+                visible: {
+                  transition: {
+                    staggerChildren: 0.15,
                   },
-                }}
-                whileHover="hover"
-                className="flex flex-col items-center text-center gap-6 px-6 py-12 md:px-10 md:py-16 border-b border-[#F5C400]/15 md:border-b-0 md:border-r border-[#F5C400]/15 last:border-r-0 md:last:border-b-0"
-              >
-                {/* Floating Icon wrapper */}
+                },
+              }}
+              className="md:col-span-7 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full md:border-r border-[#F5C400]/15 pb-8 md:pb-0 md:pr-10"
+            >
+              {[
+                {
+                  icon: "/icon-smile.png",
+                  text1: "Self-deprecating",
+                  text2: "humor",
+                },
+                {
+                  icon: "/icon-handshake.png",
+                  text1: "We laugh together",
+                  text2: "at the chaos",
+                },
+                {
+                  icon: "/icon-rocket.png",
+                  text1: "Big wins. Big losses.",
+                  text2: "All part of the ride.",
+                },
+              ].map((col, index) => (
                 <motion.div
+                  key={index}
                   variants={{
-                    hover: {
-                      y: -10,
-                      scale: 1.08,
-                      rotate: index === 2 ? 8 : index === 0 ? -8 : 0,
-                      transition: { type: "spring", stiffness: 350, damping: 10 },
+                    hidden: { opacity: 0, y: 30 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { type: "spring", stiffness: 100, damping: 18 },
                     },
                   }}
-                  className="w-24 h-24 sm:w-28 sm:h-28 relative select-none cursor-pointer"
+                  whileHover="hover"
+                  className="flex flex-row md:flex-col items-center text-left md:text-center gap-4 p-4 md:p-3 rounded-2xl bg-zinc-900/30 md:bg-transparent border border-zinc-900 md:border-transparent hover:border-[#F5C400]/10 hover:bg-[#F5C400]/5 transition-all duration-300"
                 >
-                  <Image
-                    src={col.icon}
-                    alt={col.text1}
-                    fill
-                    className="object-contain animate-[float_4s_infinite_ease-in-out]"
-                    style={{ animationDelay: `${index * 0.5}s` }}
-                  />
-                </motion.div>
+                  {/* Floating Icon wrapper */}
+                  <motion.div
+                    variants={{
+                      hover: {
+                        scale: 1.12,
+                        rotate: index === 2 ? 8 : index === 0 ? -8 : 0,
+                        transition: { type: "spring", stiffness: 350, damping: 10 },
+                      },
+                    }}
+                    className="w-12 h-12 sm:w-14 sm:h-14 md:w-20 md:h-20 relative select-none cursor-pointer flex-shrink-0"
+                  >
+                    <Image
+                      src={col.icon}
+                      alt={col.text1}
+                      fill
+                      className="object-contain animate-[float_4s_infinite_ease-in-out]"
+                      style={{ animationDelay: `${index * 0.5}s` }}
+                    />
+                  </motion.div>
 
-                {/* Typography block */}
-                <div className="flex flex-col text-lg sm:text-xl md:text-2xl font-black tracking-tight leading-snug text-white font-sans max-w-[280px]">
-                  <span>{col.text1}</span>
-                  <span className="text-[#F5C400] mt-0.5">{col.text2}</span>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+                  {/* Typography block */}
+                  <div className="flex flex-col text-sm sm:text-base md:text-lg font-black tracking-tight leading-snug text-white font-sans text-left md:text-center mt-0 md:mt-2">
+                    <span>{col.text1}</span>
+                    <span className="text-[#F5C400] mt-0.5">{col.text2}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Right Column (col-span-5): Risk Stroke Graphic (Sized larger) */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ type: "spring", stiffness: 80, damping: 16, delay: 0.3 }}
+              className="md:col-span-5 relative w-full h-[160px] sm:h-[220px] md:h-[280px] lg:h-[320px] flex items-center justify-center select-none"
+            >
+              <Image
+                src="/risk-stroke.png"
+                alt="Risk stroke graphic"
+                fill
+                priority
+                className="object-contain select-none drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)]"
+              />
+            </motion.div>
+
+          </div>
         </div>
       </section>
     </main>
