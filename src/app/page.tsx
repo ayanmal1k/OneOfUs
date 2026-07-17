@@ -146,7 +146,7 @@ export default function Home() {
       </motion.div>
 
       {/* Main Content Area */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto min-h-screen flex flex-col justify-between px-6 py-10 md:px-12 md:py-12">
+      <div className="relative z-10 w-full max-w-7xl mx-auto min-h-screen flex flex-col justify-between px-6 pt-6 pb-10 md:px-12 md:py-12">
 
         {/* Top Header/Nav */}
         <div className="w-full flex items-center justify-between">
@@ -169,20 +169,20 @@ export default function Home() {
         </div>
 
         {/* Hero Copy (Full-width) */}
-        <div className="flex-1 flex flex-col justify-center w-full max-w-none mt-8 md:mt-16 pl-2 sm:pl-6 md:pl-10 lg:pl-14">
+        <div className="flex-1 flex flex-col justify-start md:justify-center w-full max-w-none mt-6 md:mt-16 pl-2 sm:pl-6 md:pl-10 lg:pl-14">
           {/* Big Uppercase Headings - Slightly Smaller with Letter Spacing */}
-          <div ref={headingRef} className="flex flex-col gap-0 select-none pt-4 pb-2">
-            <h1 className="font-display text-6xl sm:text-7xl md:text-[8rem] lg:text-[10rem] leading-[0.9] tracking-[0.06em] text-[#F5C400] font-black drop-shadow-md">
+          <div ref={headingRef} className="flex flex-col gap-0 select-none pt-1 pb-1 md:pt-4 md:pb-2">
+            <h1 className="font-display text-8xl sm:text-8xl md:text-[8rem] lg:text-[10rem] leading-[0.9] tracking-[0.06em] text-[#F5C400] font-black drop-shadow-md">
               ONE OF US
             </h1>
-            <h2 className="font-display text-6xl sm:text-7xl md:text-[8rem] lg:text-[10rem] leading-[0.9] tracking-[0.06em] text-white font-black drop-shadow-md">
+            <h2 className="font-display text-8xl sm:text-8xl md:text-[8rem] lg:text-[10rem] leading-[0.9] tracking-[0.06em] text-white font-black drop-shadow-md">
               $ONE
             </h2>
           </div>
 
           {/* Description & Smaller text info - More Compact Spacing & Font Sizes */}
-          <div ref={infoRef} className="flex flex-col items-start mt-6 md:mt-8 gap-4">
-            <div className="flex flex-col text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black tracking-tight leading-tight">
+          <div ref={infoRef} className="flex flex-col items-start mt-2 md:mt-8 gap-4">
+            <div className="flex flex-col text-3xl sm:text-3xl md:text-3xl lg:text-4xl font-black tracking-tight leading-tight">
               <span className="text-white">High risks. Big laughs.</span>
               <span className="text-white">
                 You belong <span className="text-[#F5C400]">here.</span>
@@ -198,7 +198,7 @@ export default function Home() {
               whileDrag={{ scale: 1.15, cursor: 'grabbing' }}
               whileHover={{ scale: 1.05 }}
               transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-              className="mt-6 md:mt-8 cursor-grab active:cursor-grabbing relative select-none w-64 sm:w-80 md:w-96 lg:w-[28rem] h-auto"
+              className="hidden md:block mt-2 md:mt-8 cursor-grab active:cursor-grabbing relative select-none w-52 sm:w-72 md:w-96 lg:w-[28rem] h-auto"
             >
               <Image
                 src="/stamp.png"
