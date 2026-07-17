@@ -162,7 +162,7 @@ export default function Home() {
             $ONE
           </span>
           <motion.a
-            href="https://x.com"
+            href="https://x.com/ONEofUshood"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.08 }}
@@ -543,7 +543,7 @@ export default function Home() {
 
               {/* Follow Us on X Button */}
               <motion.a
-                href="https://x.com"
+                href="https://x.com/ONEofUshood"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05, rotate: 0 }}
