@@ -135,6 +135,7 @@ export default function Home() {
             alt="OneOfUs Hero Background"
             fill
             priority
+            sizes="100vw"
             quality={100}
             className="object-cover object-center select-none"
           />
@@ -147,6 +148,7 @@ export default function Home() {
             alt="OneOfUs Hero Background Mobile"
             fill
             priority
+            sizes="100vw"
             quality={100}
             className="object-cover object-center select-none"
           />
@@ -277,6 +279,7 @@ export default function Home() {
                 width={500}
                 height={32}
                 className="object-contain w-full h-full object-right"
+                style={{ height: "auto" }}
               />
             </motion.div>
           </div>
@@ -343,6 +346,7 @@ export default function Home() {
                       src={col.icon}
                       alt={col.text1}
                       fill
+                      sizes="80px"
                       className="object-contain animate-[float_4s_infinite_ease-in-out]"
                       style={{ animationDelay: `${index * 0.5}s` }}
                     />
@@ -464,6 +468,7 @@ export default function Home() {
                 alt="WallStreetBets Kid pointing"
                 fill
                 priority
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-contain object-bottom md:object-right-bottom select-none"
               />
             </motion.div>
@@ -499,6 +504,7 @@ export default function Home() {
                 width={500}
                 height={32}
                 className="object-contain w-full h-full object-right"
+                style={{ height: "auto" }}
               />
             </motion.div>
           </div>
@@ -520,6 +526,7 @@ export default function Home() {
                   alt="One of Us Graphic"
                   fill
                   priority
+                  sizes="(max-width: 768px) 100vw, 460px"
                   className="object-contain select-none animate-[float_6s_infinite_ease-in-out]"
                 />
               </motion.div>
