@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Bebas_Neue, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -77,6 +78,11 @@ export default function RootLayout({
         <SmoothScroll>
           {children}
         </SmoothScroll>
+        <Script
+          src="https://cdn.zanderio.ai/widget/loader.js"
+          data-id="wdg_duzWH01PM7HlpxAOvQrFJbcA"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
